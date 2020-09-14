@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "pedido")
@@ -23,13 +21,11 @@ public class Pedido {
 	@Column(name = "valor", nullable = false )
 	private Double valor;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dataPedido", nullable = false)
+	@Column(name = "dataPedido", nullable = false, columnDefinition = "DATE")
 	private Date dataPedido;
 	
-	//@Temporal(TemporalType.TIME)
-	//@Column(name = "horaPedido", nullable = false)
-	//private Time horaPedido;
+	@Column(name = "horaPedido", nullable = false, columnDefinition = "TIME")
+	private Time horaPedido;
 	
 		
 	public Pedido() {
@@ -67,14 +63,14 @@ public class Pedido {
 	}
 
 
-	//public Time getHoraPedido() {
-	//	return horaPedido;
-	//}
+	public Time getHoraPedido() {
+		return horaPedido;
+	}
 
 
-	//public void setHoraPedido(Time horaPedido) {
-	//	this.horaPedido = horaPedido;
-	//}
+	public void setHoraPedido(Time horaPedido) {
+		this.horaPedido = horaPedido;
+	}
 
 
 	
