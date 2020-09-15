@@ -20,13 +20,13 @@ public class Cliente {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome", nullable = false, length = 40 )
 	private String nome;
 	
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "email", nullable = false, unique = true, length = 40 )
 	private String email;
 	
-	@Column(name = "telefone", nullable = false, unique = true)
+	@Column(name = "telefone", nullable = false, unique = true, length = 11)
 	private String telefone;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="cliente", cascade= CascadeType.ALL)

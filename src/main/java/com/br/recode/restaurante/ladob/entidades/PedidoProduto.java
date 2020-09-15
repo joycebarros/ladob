@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table (name="pedido_produto")
 
 
-public class Pedido_produto {
+public class PedidoProduto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,11 @@ public class Pedido_produto {
 	
 	@ManyToOne(fetch=FetchType.EAGER, optional=false)
 	private Produto produto;
-		
+	
+	public PedidoProduto() {
+		super();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -41,16 +45,6 @@ public class Pedido_produto {
 	}
 
 	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public Pedido_produto() {
-		super();
-	}
-
-	public Pedido_produto(Long id, Integer quantidade) {
-		super();
-		this.id = id;
 		this.quantidade = quantidade;
 	}
 

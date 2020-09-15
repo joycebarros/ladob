@@ -20,14 +20,18 @@ public class Produto {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "produto", nullable = false)
+	@Column(name = "produto", nullable = false, length = 100)
 	private String produto;
 	
 	@Column(name = "preco", nullable = false)
 	private Double preco;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="produto", cascade= CascadeType.ALL)
-	private List<Pedido_produto> pedido_produto;
+	private List<PedidoProduto> pedidoProduto;
+	
+	private Produto() {
+		super();
+	}
 	
 	public Long getId() {
 		return id;
@@ -53,9 +57,6 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	private Produto() {
-		super();
-	}
-	
+
 
 }

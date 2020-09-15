@@ -39,7 +39,7 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="pedido", cascade= CascadeType.ALL)
-	private List<Pedido_produto> pedido_produto;
+	private List<PedidoProduto> pedidoProduto;
 	
 	public Pedido() {
 		super();

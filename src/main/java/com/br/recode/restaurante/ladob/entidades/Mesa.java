@@ -18,12 +18,12 @@ public class Mesa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
-	@Column
+	@Column(nullable=false, unique = true, length = 15)
 	private String codigo;
 	
-	@Column
+	@Column(nullable= false)
 	private Integer cadeiras;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="mesa", cascade= CascadeType.ALL)
@@ -33,18 +33,18 @@ public class Mesa {
 		super();
 	}
 
-	public Mesa(Long id, String codigo, Integer cadeiras) {
+	public Mesa(Integer id, String codigo, Integer cadeiras) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
 		this.cadeiras = cadeiras;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
