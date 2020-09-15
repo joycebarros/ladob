@@ -2,12 +2,17 @@ package com.br.recode.restaurante.ladob.entidades;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +32,15 @@ public class Pedido {
 	@Column(name = "horaPedido", nullable = false, columnDefinition = "TIME")
 	private Time horaPedido;
 	
-		
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
+	private Mesa mesa;
+	
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
+	private Cliente cliente;
+	
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="pedido", cascade= CascadeType.ALL)
+	private List<Pedido_produto> pedido_produto;
+	
 	public Pedido() {
 		super();
 	}
