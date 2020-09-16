@@ -12,5 +12,7 @@ import com.br.recode.restaurante.ladob.model.Tables;
 public interface TablesRepository  extends JpaRepository<Tables, Integer>{
 		
 	List<Orders> findByCodeEquals(String code);
+	
+	List<Tables> findByCodeOrderBySeats(String code);
 
 }
