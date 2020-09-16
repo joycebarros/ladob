@@ -11,7 +11,7 @@ import com.br.recode.restaurante.ladob.model.Orders;
 
 @Repository
 public interface CostumersRepository  extends JpaRepository<Costumers, Long>{
-	//	List<Orders> findByNameContainingIgnoreCase(String name);
 	
+	List<Orders> findByNameContainingIgnoreCase(String name);
 
 }
