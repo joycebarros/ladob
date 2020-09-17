@@ -7,22 +7,12 @@ import com.br.recode.restaurante.ladob.repository.ProductsRepository;
 public class ProductsService {
 	
 	//referenciar o repositorio ao servico prodto
-	private ProductsRepository productsRespository;
+	private ProductsRepository productsRepository;
 	
 	//criacao do construtor
-	public ProductsService(ProductsRepository productsRespository) {
+	public ProductsService(ProductsRepository productsRepository) {
 		super();
-		this.setProductsRespository(productsRespository);
+		this.productsRepository = productsRepository;
 	}
-	
-
-	public ProductsRepository getProductsRespository() {
-		return productsRespository;
-	}
-
-	public void setProductsRespository(ProductsRepository productsRespository) {
-		this.productsRespository = productsRespository;
-	}
-	
 
 }
