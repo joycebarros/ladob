@@ -26,6 +26,11 @@ public class TablesService {
 		Optional<Tables> optionalTables = tablesRepository.findById(id);
 		return optionalTables.orElse(null);
 	}
+
+	public Tables save(Tables table) {
+		table.setId(null);
+		return tablesRepository.save(table);
+	}
 	
 	
 
