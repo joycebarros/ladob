@@ -28,6 +28,7 @@ public class OrdersService {
 	}
 
 	public Orders save(Orders orders) {
+		orders.setId(null);
 		return ordersRepository.save(orders);
 	}
 

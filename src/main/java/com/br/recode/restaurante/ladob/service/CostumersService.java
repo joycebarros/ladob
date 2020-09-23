@@ -29,6 +29,7 @@ public class CostumersService {
 	}
 
 	public Costumers save(Costumers costumers) {
+		costumers.setId(null);
 		return costumersRepository.save(costumers);
 	}
 

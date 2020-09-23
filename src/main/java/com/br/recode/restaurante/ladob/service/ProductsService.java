@@ -31,6 +31,7 @@ public class ProductsService {
 
 
 	public Products save(Products products) {
+		products.setId(null);
 		return productsRepository.save(products);
 	}
 

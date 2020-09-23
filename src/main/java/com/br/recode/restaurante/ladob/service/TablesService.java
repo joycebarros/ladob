@@ -28,6 +28,7 @@ public class TablesService {
 	}
 
 	public Tables save(Tables tables) {
+		tables.setId(null);
 		return tablesRepository.save(tables);
 	}
 

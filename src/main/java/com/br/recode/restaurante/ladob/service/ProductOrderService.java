@@ -28,6 +28,7 @@ public class ProductOrderService {
 	}
 
 	public ProductOrder save(ProductOrder productOrder) {
+		productOrder.setId(null);
 		return productOrderRepository.save(productOrder);
 	}
 
