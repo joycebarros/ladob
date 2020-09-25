@@ -1,6 +1,7 @@
 package com.br.recode.restaurante.ladob.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.recode.restaurante.ladob.controller.mapper.TablesMapper;
+import com.br.recode.restaurante.ladob.dto.TablesBaseDTO;
 import com.br.recode.restaurante.ladob.model.Tables;
 import com.br.recode.restaurante.ladob.service.TablesService;
 
@@ -31,40 +34,40 @@ public class TablesController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Tables>> getTables() {
+	public ResponseEntity<List<TablesBaseDTO>> getTables(@RequestParam Optional <String> name) {
 		List<Tables> tables = tablesService.findAll();
-		return new ResponseEntity<>(tables, HttpStatus.OK);
+		return new ResponseEntity<>(mapper.toTablesBaseDTO(tables), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Tables> getTable(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<TablesBaseDTO> getTable(@PathVariable(value = "id") Integer id) {
 		Tables table = tablesService.findById(id);
 		if (table == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(table, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toTablesBaseDTO(table), HttpStatus.OK);
 		}
 
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Tables> createTables(@RequestBody Tables tables) {
-		Tables tablesSaved = tablesService.save(tables);
+	public ResponseEntity<TablesBaseDTO> createTables(@RequestBody TablesBaseDTO tablesBaseDTO ) {
+		Tables tablesSaved = tablesService.save(mapper.toTables(tablesBaseDTO));
 		if (tablesSaved == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<>(tablesSaved, HttpStatus.CREATED);
+			return new ResponseEntity<>(mapper.toTablesBaseDTO(tablesSaved), HttpStatus.CREATED);
 		}
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Tables> updateTables(@PathVariable(value = "id") Integer id, @RequestBody Tables tables) {
-		tables.setId(id);
-		Tables tablesSaved = tablesService.update(tables);
+	public ResponseEntity<TablesBaseDTO> updateTables(@PathVariable(value = "id") Integer id, @RequestBody TablesBaseDTO tablesBaseDTO) {
+		tablesBaseDTO.setId(id);
+		Tables tablesSaved = tablesService.update(mapper.toTables(tablesBaseDTO));
 		if (tablesSaved == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(tablesSaved, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toTablesBaseDTO(tablesSaved), HttpStatus.OK);
 		}
 	}
 

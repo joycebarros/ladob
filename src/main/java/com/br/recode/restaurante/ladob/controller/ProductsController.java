@@ -1,6 +1,7 @@
 package com.br.recode.restaurante.ladob.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.recode.restaurante.ladob.controller.mapper.ProductsMapper;
+import com.br.recode.restaurante.ladob.dto.ProductsBaseDTO;
 import com.br.recode.restaurante.ladob.model.Products;
 import com.br.recode.restaurante.ladob.service.ProductsService;
 
@@ -32,43 +35,43 @@ public class ProductsController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Products>> getAllProducts() {
+	public ResponseEntity<List<ProductsBaseDTO>> getAllProducts(@RequestParam Optional <String> name) {
 		List<Products> products = productsService.findAll();
-		return new ResponseEntity<>(products, HttpStatus.OK);
+		return new ResponseEntity<>(mapper.toProductsBaseDTO(products), HttpStatus.OK);
 
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Products> getProducts(@PathVariable(value = "id") Long id) {
-		Products products = productsService.findById(id);
-		if (products == null) {
+	public ResponseEntity<ProductsBaseDTO> getProducts(@PathVariable(value = "id") Long id) {
+		Products product = productsService.findById(id);
+		if (product == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(products, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toProductsBaseDTO(product), HttpStatus.OK);
 		}
 
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Products> createTables(@RequestBody Products products) {
-		Products productsSaved = productsService.save(products);
+	public ResponseEntity<ProductsBaseDTO> createTables(@RequestBody  ProductsBaseDTO productsBaseDTO) {
+		Products productsSaved = productsService.save(mapper.toProducts(productsBaseDTO));
 		if (productsSaved == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<>(productsSaved, HttpStatus.CREATED);
+			return new ResponseEntity<>(mapper.toProductsBaseDTO(productsSaved), HttpStatus.CREATED);
 		}
 
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Products> updateProducts(@PathVariable(value = "id") Long id,
-			@RequestBody Products products) {
-		products.setId(id);
-		Products productsSaved = productsService.update(products);
+	public ResponseEntity<ProductsBaseDTO> updateProducts(@PathVariable(value = "id") Long id,
+			@RequestBody ProductsBaseDTO productsBaseDTO) {
+		productsBaseDTO.setId(id);
+		Products productsSaved = productsService.update(mapper.toProducts(productsBaseDTO));
 		if (productsSaved == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(productsSaved, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toProductsBaseDTO(productsSaved), HttpStatus.OK);
 		}
 	}
 

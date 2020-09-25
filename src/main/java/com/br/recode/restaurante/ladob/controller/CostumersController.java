@@ -1,6 +1,7 @@
 package com.br.recode.restaurante.ladob.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.recode.restaurante.ladob.controller.mapper.CostumersMapper;
+import com.br.recode.restaurante.ladob.dto.CostumersBaseDTO;
 import com.br.recode.restaurante.ladob.model.Costumers;
 import com.br.recode.restaurante.ladob.service.CostumersService;
 
@@ -31,41 +34,41 @@ public class CostumersController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Costumers>> getAllCostumers() {
+	public ResponseEntity<List<CostumersBaseDTO>> getAllCostumers(@RequestParam Optional <String> name) {
 		List<Costumers> costumers = costumersService.findAll();
-		return new ResponseEntity<>(costumers, HttpStatus.OK);
+		return new ResponseEntity<>(mapper.toCostumersBaseDTO(costumers), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Costumers> getCostumerId(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<CostumersBaseDTO> getCostumerId(@PathVariable(value = "id") Long id) {
 		Costumers costumer = costumersService.findById(id);
 		if (costumer == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(costumer, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toCostumersBaseDTO(costumer), HttpStatus.OK);
 		}
 
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Costumers> createCostumers(@RequestBody Costumers costumers) {
-		Costumers costumersSaved = costumersService.save(costumers);
+	public ResponseEntity<CostumersBaseDTO> createCostumers(@RequestBody CostumersBaseDTO costumersBaseDTO) {
+		Costumers costumersSaved = costumersService.save(mapper.toCostumers(costumersBaseDTO));
 		if (costumersSaved == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<>(costumersSaved, HttpStatus.CREATED);
+			return new ResponseEntity<>(mapper.toCostumersBaseDTO(costumersSaved), HttpStatus.CREATED);
 		}
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Costumers> updateCostumers(@PathVariable(value = "id") Long id,
-			@RequestBody Costumers costumers) {
-		costumers.setId(id);
-		Costumers costumersSaved = costumersService.update(costumers);
+	public ResponseEntity<CostumersBaseDTO> updateCostumers(@PathVariable(value = "id") Long id,
+			@RequestBody CostumersBaseDTO costumersBaseDTO) {
+		costumersBaseDTO.setId(id);
+		Costumers costumersSaved = costumersService.update(mapper.toCostumers(costumersBaseDTO));
 		if (costumersSaved == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(costumersSaved, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toCostumersBaseDTO(costumersSaved), HttpStatus.OK);
 		}
 	}
 

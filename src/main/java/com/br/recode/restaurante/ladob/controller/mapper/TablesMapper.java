@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.br.recode.restaurante.ladob.dto.TablesBaseDTO;
-import com.br.recode.restaurante.ladob.dto.TablesDTO;
 import com.br.recode.restaurante.ladob.model.Tables;
 
 @Component
@@ -30,10 +29,6 @@ public class TablesMapper {
 
 	public TablesBaseDTO toTablesBaseDTO(Tables table) {
 		return modelMapper.map(table, TablesBaseDTO.class);
-	}
-
-	public TablesDTO toTablesDTO(Tables table) {
-		return modelMapper.map(table, TablesDTO.class);
 	}
 
 	public Tables toTables(TablesBaseDTO tablesBaseDTO) {

@@ -1,6 +1,7 @@
 package com.br.recode.restaurante.ladob.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.recode.restaurante.ladob.controller.mapper.OrdersMapper;
+import com.br.recode.restaurante.ladob.dto.OrdersBaseDTO;
 import com.br.recode.restaurante.ladob.model.Orders;
 import com.br.recode.restaurante.ladob.service.OrdersService;
 
@@ -31,40 +34,40 @@ public class OrdersController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Orders>> getAllOrders() {
+	public ResponseEntity<List<OrdersBaseDTO>> getAllOrders(@RequestParam Optional <String> name) {
 		List<Orders> orders = ordersService.findAll();
-		return new ResponseEntity<>(orders, HttpStatus.OK);
+		return new ResponseEntity<>(mapper.toOrdersBaseDTO(orders), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Orders> getOrderId(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<OrdersBaseDTO> getOrderId(@PathVariable(value = "id") Long id) {
 		Orders order = ordersService.findById(id);
 		if (order == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(order, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toOrdersBaseDTO(order), HttpStatus.OK);
 		}
 
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Orders> createOrders(@RequestBody Orders orders) {
-		Orders ordersSaved = ordersService.save(orders);
+	public ResponseEntity<OrdersBaseDTO> createOrders(@RequestBody OrdersBaseDTO ordersBaseDTO) {
+		Orders ordersSaved = ordersService.save(mapper.toOrders(ordersBaseDTO));
 		if (ordersSaved == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<>(ordersSaved, HttpStatus.CREATED);
+			return new ResponseEntity<>(mapper.toOrdersBaseDTO(ordersSaved), HttpStatus.CREATED);
 		}
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Orders> updateOrders(@PathVariable(value = "id") Long id, @RequestBody Orders orders) {
-		orders.setId(id);
-		Orders ordersSaved = ordersService.update(orders);
+	public ResponseEntity<OrdersBaseDTO> updateOrders(@PathVariable(value = "id") Long id, @RequestBody OrdersBaseDTO ordersBaseDTO) {
+		ordersBaseDTO.setId(id);
+		Orders ordersSaved = ordersService.update(mapper.toOrders(ordersBaseDTO));
 		if (ordersSaved == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(ordersSaved, HttpStatus.OK);
+			return new ResponseEntity<>(mapper.toOrdersBaseDTO(ordersSaved), HttpStatus.OK);
 		}
 	}
 
