@@ -10,8 +10,8 @@ import com.br.recode.restaurante.ladob.model.Products;
 @Repository
 public interface ProductsRepository extends JpaRepository<Products, Long>{
 	
-	List<Products> findByProductContainingIgnoreCase(String product);
+	List<Products> findByDescriptionContainingIgnoreCase(String Description);
 	
-	List<Products> findByProductOrderByUnitPrice(String product);
+	List<Products> findByDescriptionOrderByUnitPrice(String Description);
 	
 }

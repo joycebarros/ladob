@@ -21,7 +21,7 @@ public class Products {
 	private Long id;
 	
 	@Column(nullable = false, length = 100)
-	private String product;
+	private String description;
 	
 	@Column(nullable = false)
 	private Double unitPrice;
@@ -41,12 +41,12 @@ public class Products {
 		this.id = id;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Double getUnitPrice() {

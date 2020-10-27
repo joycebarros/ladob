@@ -27,9 +27,27 @@ public class TablesService {
 		return optionalTables.orElse(null);
 	}
 
-	public Tables save(Tables table) {
-		table.setId(null);
-		return tablesRepository.save(table);
+	public Tables save(Tables tables) {
+		tables.setId(null);
+		return tablesRepository.save(tables);
+	}
+
+	public Tables update(Tables tables) {
+		Integer id = tables.getId();
+		if(id == null) {
+			return null;
+		}else {
+			Tables findTables = tablesRepository.findById(id).orElse(null);
+			if(findTables == null) {
+				return null;
+			}
+			return tablesRepository.save(tables);
+		}
+	}
+
+	public void deleteById(Integer id) {
+		tablesRepository.deleteById(id);
+		
 	}
 	
 	

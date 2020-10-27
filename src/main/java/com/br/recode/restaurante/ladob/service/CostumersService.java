@@ -28,4 +28,28 @@ public class CostumersService {
 		return optionalCostumers.orElse(null);
 	}
 
+	public Costumers save(Costumers costumers) {
+		costumers.setId(null);
+		return costumersRepository.save(costumers);
+	}
+
+	public Costumers update(Costumers costumers) {
+		Long id = costumers.getId();
+		if(id == null) {
+			return null;
+		}else {
+			Costumers findCostumers = costumersRepository.findById(id).orElse(null);
+			if(findCostumers == null) {
+				return null;
+			}
+			return costumersRepository.save(costumers);
+		}		
+	}
+
+	public void deleteById(Long id) {
+		costumersRepository.deleteById(id);
+		
+	}
+
+	
 }

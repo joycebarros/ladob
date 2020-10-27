@@ -7,36 +7,35 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.br.recode.restaurante.ladob.dto.TablesBaseDTO;
+import com.br.recode.restaurante.ladob.dto.TablesDTO;
 import com.br.recode.restaurante.ladob.model.Tables;
 
 @Component
 public class TablesMapper {
-	
-	private ModelMapper modelMapper;
 
+	private ModelMapper modelMapper;
+	
 	public TablesMapper() {
-		super();
 		this.modelMapper = new ModelMapper();
 	}
 	
-	public List<TablesBaseDTO> toTableBaseDTO(List<Tables> tables){
+	public List<TablesBaseDTO> toTablesBaseDTO (List<Tables> tables){
 		List<TablesBaseDTO> tablesBaseDTO = new ArrayList<>();
-		
 		for (Tables table : tables) {
-			tablesBaseDTO.add(toTableBaseDTO(table));			
+			tablesBaseDTO.add(toTablesBaseDTO(table));
 		}
 		return tablesBaseDTO;
 	}
 	
-	public TablesBaseDTO toTableBaseDTO(Tables tables) {
+	public TablesBaseDTO toTablesBaseDTO (Tables tables) {
 		return modelMapper.map(tables, TablesBaseDTO.class);
 	}
 	
-	public Tables toTable(TablesBaseDTO tablesBaseDTO) {
-		return modelMapper.map(tablesBaseDTO, Tables.class);
+	public TablesDTO toTablesDTO (Tables tables) {
+		return modelMapper.map(tables, TablesDTO.class);
 	}
 	
-	
-	
-
+	public Tables toTables (TablesBaseDTO tablesBaseDTO) {
+		return modelMapper.map(tablesBaseDTO, Tables.class);
+	}
 }
