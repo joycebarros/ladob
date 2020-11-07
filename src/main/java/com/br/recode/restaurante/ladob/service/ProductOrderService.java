@@ -5,17 +5,23 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.br.recode.restaurante.ladob.model.Orders;
 import com.br.recode.restaurante.ladob.model.ProductOrder;
+import com.br.recode.restaurante.ladob.model.Products;
 import com.br.recode.restaurante.ladob.repository.ProductOrderRepository;
 
 @Service
 public class ProductOrderService {
 
 	private ProductOrderRepository productOrderRepository;
+	private OrdersService ordersService;
+	private ProductsService productsService;
 
-	public ProductOrderService(ProductOrderRepository productOrderRepository) {
+	public ProductOrderService(ProductOrderRepository productOrderRepository, OrdersService ordersService, ProductsService productsService) {
 		super();
 		this.productOrderRepository = productOrderRepository;
+		this.ordersService = ordersService;
+		this.productsService = productsService;
 	}
 
 	public List<ProductOrder> findAll() {
@@ -29,7 +35,17 @@ public class ProductOrderService {
 
 	public ProductOrder save(ProductOrder productOrder) {
 		productOrder.setId(null);
-		return productOrderRepository.save(productOrder);
+		try {
+			productOrder = productOrderRepository.save(productOrder);
+			Orders orders = ordersService.findById(productOrder.getOrders().getId());
+			productOrder.setOrders(orders);
+			Products products = productsService.findById(productOrder.getProducts().getId());
+			productOrder.setProducts(products);
+			return productOrder;
+		}catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 	public ProductOrder update(ProductOrder productOrder) {
