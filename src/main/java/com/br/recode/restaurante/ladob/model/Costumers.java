@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @Entity
 @Table(name = "costumers")
 public class Costumers {
@@ -28,6 +30,9 @@ public class Costumers {
 	
 	@Column(nullable = false, unique = true, length = 11)
 	private String telephone;
+	
+	@Column(nullable = false, length = 100 )
+	private String password;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="costumers", cascade= CascadeType.ALL)
 	private List<Orders> orders;
@@ -62,6 +67,16 @@ public class Costumers {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		String salt = BCrypt.gensalt();
+		this.password = BCrypt.hashpw(password, salt);
+//		this.password = password;
+	}
 
 	public List<Orders> getOrders() {
 		return orders;
@@ -71,5 +86,7 @@ public class Costumers {
 		this.orders = orders;
 	}
 	
-	
+	public boolean validarSenha(String password) {
+		return BCrypt.checkpw(password, this.getPassword());
+	}
 }

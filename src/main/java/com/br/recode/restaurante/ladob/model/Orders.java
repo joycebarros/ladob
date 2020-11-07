@@ -22,10 +22,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-			
-	@Column(nullable = false )
-	private Double totalAmount;
-
+	
 	@Column(nullable = false, columnDefinition = "DATE")
 	private Date orderDate;
 	
@@ -53,16 +50,6 @@ public class Orders {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	public Double getTotalAmount() {
-		return totalAmount;
-	}
-
-
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
 	}
 
 

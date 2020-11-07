@@ -20,6 +20,9 @@ public class Products {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false, length = 40)
+	private String name;
+	
 	@Column(nullable = false, length = 100)
 	private String description;
 	
@@ -39,6 +42,14 @@ public class Products {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {

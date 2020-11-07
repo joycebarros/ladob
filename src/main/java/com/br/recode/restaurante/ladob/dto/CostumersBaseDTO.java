@@ -6,6 +6,7 @@ public class CostumersBaseDTO {
 	private String name;
 	private String email;
 	private String telephone;
+	private String password;
 	
 	public CostumersBaseDTO() {
 		
@@ -41,6 +42,14 @@ public class CostumersBaseDTO {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

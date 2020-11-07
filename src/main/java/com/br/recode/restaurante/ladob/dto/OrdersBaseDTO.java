@@ -6,9 +6,10 @@ import java.util.Date;
 public class OrdersBaseDTO {
 
 	private Long id;
-	private Double totalAmount;
 	private Date orderDate;
 	private Time orderTime;
+	private TablesBaseDTO tables;
+	private CostumersBaseDTO costumers;
 	
 	public OrdersBaseDTO() {
 		
@@ -21,14 +22,7 @@ public class OrdersBaseDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Double getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
-	}
+	
 
 	public Date getOrderDate() {
 		return orderDate;
@@ -46,5 +40,20 @@ public class OrdersBaseDTO {
 		this.orderTime = orderTime;
 	}
 	
+	public TablesBaseDTO getTables() {
+		return tables;
+	}
+
+	public void setTables(TablesBaseDTO tables) {
+		this.tables = tables;
+	}
+
+	public CostumersBaseDTO getCostumers() {
+		return costumers;
+	}
+
+	public void setCostumers(CostumersBaseDTO costumers) {
+		this.costumers = costumers;
+	}
 	
 }

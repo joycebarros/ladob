@@ -4,6 +4,8 @@ public class ProductOrderBaseDTO {
 
 	private Long id;
 	private Integer quantity;
+	private OrdersBaseDTO orders;
+	private ProductsBaseDTO products;
 	
 	public ProductOrderBaseDTO() {
 		
@@ -25,5 +27,19 @@ public class ProductOrderBaseDTO {
 		this.quantity = quantity;
 	}
 	
-	
+	public OrdersBaseDTO getOrders() {
+		return orders;
+	}
+
+	public void setOrders(OrdersBaseDTO orders) {
+		this.orders = orders;
+	}
+
+	public ProductsBaseDTO getProducts() {
+		return products;
+	}
+
+	public void setProducts(ProductsBaseDTO products) {
+		this.products = products;
+	}
 }

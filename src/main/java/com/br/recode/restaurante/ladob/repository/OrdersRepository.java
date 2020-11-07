@@ -17,8 +17,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 	
 	List<Products> findByOrderDateEquals(Date orderDate);
 	
-	List<Costumers> findByTotalAmountGreaterThanEqual(Double totalAmount);
-	
 	List<Costumers> findByCostumersOrderByOrderDate(Costumers costumers);
 	
 }
