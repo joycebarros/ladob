@@ -58,7 +58,7 @@ public class Orders {
 	}
 
 
-	public void setOrderDater(Date orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
