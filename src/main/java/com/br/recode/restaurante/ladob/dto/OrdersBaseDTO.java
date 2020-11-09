@@ -3,9 +3,12 @@ package com.br.recode.restaurante.ladob.dto;
 import java.sql.Time;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class OrdersBaseDTO {
 
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date orderDate;
 	private Time orderTime;
 	private TablesBaseDTO tables;
