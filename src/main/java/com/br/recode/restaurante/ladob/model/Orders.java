@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,12 +27,6 @@ public class Orders {
 	
 	@Column(nullable = false, columnDefinition = "TIME")
 	private Time orderTime;
-	
-	@ManyToOne(fetch=FetchType.EAGER, optional=false)
-	private Tables tables;
-	
-	@ManyToOne(fetch=FetchType.EAGER, optional=false)
-	private Costumers costumers;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="orders", cascade= CascadeType.ALL)
 	private List<ProductOrder> productOrder;
@@ -70,26 +63,6 @@ public class Orders {
 
 	public void setOrderTime(Time orderTime) {
 		this.orderTime = orderTime;
-	}
-
-
-	public Tables getTables() {
-		return tables;
-	}
-
-
-	public void setTables(Tables tables) {
-		this.tables = tables;
-	}
-
-
-	public Costumers getCostumers() {
-		return costumers;
-	}
-
-
-	public void setCostumers(Costumers costumers) {
-		this.costumers = costumers;
 	}
 
 

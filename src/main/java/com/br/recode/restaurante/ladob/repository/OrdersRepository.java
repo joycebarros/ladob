@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.br.recode.restaurante.ladob.model.Costumers;
 import com.br.recode.restaurante.ladob.model.Orders;
 import com.br.recode.restaurante.ladob.model.Products;
 
@@ -16,7 +15,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 	List<Products> findByIdEquals(Long id);
 	
 	List<Products> findByOrderDateEquals(Date orderDate);
-	
-	List<Costumers> findByCostumersOrderByOrderDate(Costumers costumers);
+		
 	
 }

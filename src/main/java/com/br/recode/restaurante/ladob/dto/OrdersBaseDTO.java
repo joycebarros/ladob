@@ -8,9 +8,7 @@ public class OrdersBaseDTO {
 	private Long id;
 	private Date orderDate;
 	private Time orderTime;
-	private TablesBaseDTO tables;
-	private CostumersBaseDTO costumers;
-	
+		
 	public OrdersBaseDTO() {
 		
 	}
@@ -39,21 +37,6 @@ public class OrdersBaseDTO {
 	public void setOrderTime(Time orderTime) {
 		this.orderTime = orderTime;
 	}
-	
-	public TablesBaseDTO getTables() {
-		return tables;
-	}
-
-	public void setTables(TablesBaseDTO tables) {
-		this.tables = tables;
-	}
-
-	public CostumersBaseDTO getCostumers() {
-		return costumers;
-	}
-
-	public void setCostumers(CostumersBaseDTO costumers) {
-		this.costumers = costumers;
-	}
+		
 	
 }

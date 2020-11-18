@@ -5,23 +5,17 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.br.recode.restaurante.ladob.model.Costumers;
 import com.br.recode.restaurante.ladob.model.Orders;
-import com.br.recode.restaurante.ladob.model.Tables;
 import com.br.recode.restaurante.ladob.repository.OrdersRepository;
 
 @Service
 public class OrdersService {
 	
 	private OrdersRepository ordersRepository;
-	private CostumersService costumersService;
-	private TablesService tablesService;
-
-	public OrdersService(OrdersRepository ordersRepository, CostumersService costumersService, TablesService tablesService) {
+	
+	public OrdersService(OrdersRepository ordersRepository) {
 		super();
-		this.ordersRepository = ordersRepository;
-		this.costumersService = costumersService;
-		this.tablesService = tablesService;		
+		this.ordersRepository = ordersRepository;			
 	}
 
 	public List<Orders> findAll() {
@@ -38,10 +32,6 @@ public class OrdersService {
 		
 		try{
 			orders = ordersRepository.save(orders);
-			Costumers costumers = costumersService.findById(orders.getCostumers().getId());
-			orders.setCostumers(costumers);
-			Tables tables = tablesService.findById(orders.getTables().getId());
-			orders.setTables(tables);
 			return orders;
 			
 		}catch (Exception e) {
@@ -66,6 +56,5 @@ public class OrdersService {
 		ordersRepository.deleteById(id);
 		
 	}
-
 	
 }
