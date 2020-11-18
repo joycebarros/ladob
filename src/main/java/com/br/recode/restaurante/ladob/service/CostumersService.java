@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.br.recode.restaurante.ladob.model.Costumers;
 import com.br.recode.restaurante.ladob.repository.CostumersRepository;
 
-
 @Service
 public class CostumersService {
 
@@ -35,21 +34,24 @@ public class CostumersService {
 
 	public Costumers update(Costumers costumers) {
 		Long id = costumers.getId();
-		if(id == null) {
+		if (id == null) {
 			return null;
-		}else {
+		} else {
 			Costumers findCostumers = costumersRepository.findById(id).orElse(null);
-			if(findCostumers == null) {
+			if (findCostumers == null) {
 				return null;
 			}
 			return costumersRepository.save(costumers);
-		}		
+		}
 	}
 
 	public void deleteById(Long id) {
 		costumersRepository.deleteById(id);
-		
+
 	}
 
-	
+	public Costumers findByEmail(String email) {
+		return costumersRepository.findByEmail(email);
+	}
+
 }
